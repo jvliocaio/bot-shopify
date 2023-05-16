@@ -31,8 +31,8 @@ def get_bsb_time():
 
 def purchase_method():
     options = Options()
-    options.add_argument('--headless')
-    driver = webdriver.Firefox()#options=options)
+    options.binary_location = '/usr/bin/firefox'
+    driver = webdriver.Firefox(options=options)
 
     link = 'https://nvaiacharirmao.myshopify.com/products/removedor-de-cravos-e-espinhas-lt-succao-a-vacuo'
     
@@ -137,7 +137,7 @@ def execute():
             print(i)
             time.sleep(ts)
     else:
-        rn = random.randint(0, 15) 
+        rn = random.randint(2, 15) 
         ts = random.randint(30, 120)
         print(rn)
         for i in range(rn):
