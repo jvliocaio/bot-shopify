@@ -50,19 +50,19 @@ def purchase_method():
 
     # 3 | click | linkText=FINALIZAR COMPRA |  | 
     while True:
-        cart_btn = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//a[@class="button button--primary" and @href="/cart"]')))
+        cart_btn = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH,'//a[@class="button button--primary" and @href="/cart"]')))
         driver.execute_script("arguments[0].scrollIntoView(true);", cart_btn)
         driver.execute_script("arguments[0].click();", cart_btn)
 
         try:
-            wait = WebDriverWait(driver, 10)
+            wait = WebDriverWait(driver, 30)
             wait.until(EC.presence_of_element_located((By.ID, "name")))
             break  # sair do loop quando a ação for concluída
         except:
             continue
     
     #driver.find_element(By.XPATH,'//a[@class="button button--primary" and @href="/cart"]').click()
-    time.sleep(5)
+    time.sleep(10)
 
     # 4 | type | id=name | Jose Alves | 
     driver.find_element(By.ID, "name").send_keys("Jose Alves")
@@ -82,7 +82,7 @@ def purchase_method():
         driver.execute_script("arguments[0].click();", continue_btn)
 
         try:
-            wait = WebDriverWait(driver, 10)
+            wait = WebDriverWait(driver, 30)
             wait.until(EC.presence_of_element_located((By.ID, "zipcode")))
             break  # sair do loop quando a ação for concluída
         except:
@@ -92,17 +92,17 @@ def purchase_method():
     driver.find_element(By.ID, "zipcode").send_keys("65058-579")
 
     # 10 | type |  id=number | 2 | 
-    time.sleep(5)
+    time.sleep(10)
     driver.find_element(By.ID, "number").send_keys("2")
 
     # 11 | click | xpath=//form[@id='form-checkout-shipment']/div[2]/div[6]/button |  | 
-    time.sleep(2)
+    time.sleep(5)
     driver.find_element(By.CSS_SELECTOR, ".btn.btn-primary.btn-block.btn-send").click()
 
-    time.sleep(5)
+    time.sleep(10)
     driver.find_element(By.CSS_SELECTOR, 'button.btn.btn-primary.btn-block.btn-send.link-box-checkout[data-target=".box-payment"][data-url="https://seguro.ltinovacoes.com.br/checkout/payment"]').click()
 
-    time.sleep(5)
+    time.sleep(10)
     # 13 | click | xpath=//form/div/div[4]/label |  |     
     while True:
         payment_billet = driver.find_element(By.XPATH, "//div[4]/label/div/label")
@@ -111,7 +111,7 @@ def purchase_method():
         # payment_billet.click()
 
         try:
-            wait = WebDriverWait(driver, 10)
+            wait = WebDriverWait(driver, 30)
             wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn.btn-primary.btn-block.btn-send.btn-finalize.with-icon")))
             break  # sair do loop quando a ação for concluída
         except:
@@ -133,17 +133,22 @@ def execute():
 
     if bsb_interval == 0:
         rn = random.randint(10, 54)
-        ts = random.randint(10, 30)
+        ts = random.randint(40, 60)
 
         print(dt_now)
         print(f"Qtd de compras:",rn)
         print(f"Qtd de delay:",ts)
 
         for i in range(rn):
-            purchase_method()
-            i += 1
-            print(i)
-            time.sleep(ts)
+            try:
+                purchase_method()
+                print(i + 1)
+                time.sleep(ts)
+                i += 1
+            except:
+                i -= 1
+                time.sleep(60)
+                continue
     else:
         rn = random.randint(2, 15) 
         ts = random.randint(30, 120)
@@ -153,10 +158,14 @@ def execute():
         print(f"Qtd de delay:",ts)
         # exit()
         for i in range(rn):
-            purchase_method()
-            i += 1
-            print(i)
-            time.sleep(ts)
-
+            try:
+                purchase_method()
+                print(i + 1)
+                time.sleep(ts)
+                i += 1
+            except:
+                i -= 1
+                time.sleep(60)
+                continue
 
 execute()

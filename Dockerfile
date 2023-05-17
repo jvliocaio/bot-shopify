@@ -1,5 +1,5 @@
 FROM selenium/standalone-firefox-debug
-RUN sudo apt-get update && sudo apt-get install -y python3 python3-pip tzdata
+RUN sudo apt-get update && sudo apt-get install -y python3 python3-pip
 #RUN pip3 install selenium
 
 COPY geckodriver /usr/bin
