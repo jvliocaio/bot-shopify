@@ -1,6 +1,7 @@
 #!/bin/bash
 docker stop bot
 docker rm bot
+docker rmi -f $(docker images -q) 
 docker build -t bot-shopify .
 docker run --name bot -p 4444:4444 -p 5900:5900 --shm-size=2g --restart=always -d -it bot-shopify
 sleep 5
