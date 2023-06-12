@@ -1,4 +1,10 @@
-FROM selenium/standalone-firefox-debug
+FROM selenium/standalone-chrome-debug
+
+ENV TZ=America/Sao_Paulo
+# $ echo "America/Sao_Paulo" > /etc/timezone
+# $ dpkg-reconfigure -f noninteractive tzdata
+#RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN sudo apt-get update && sudo apt-get install -y python3 python3-pip
 #RUN pip3 install selenium
 
