@@ -1,5 +1,6 @@
 import undetected_chromedriver as uc
 from requests import post
+from faker import Faker
 import time, random, pytz
 from datetime import datetime
 from selenium import webdriver
@@ -44,41 +45,15 @@ def generate_cpf():
 
 
 def generate_name():
-    names = [
-        "João","Maria","Pedro","Ana","José","Carla","Miguel","Sara","Lucas","Mariana",
-         "Gabriel","Laura","Diego","Beatriz","Rafael","Isabela","Guilherme","Julia","Arthur",
-         "Larissa","Fernando","Amanda","Gustavo","Natália","Enzo","Lara","Leonardo","Manuela",
-         "Matheus","Camila","Ricardo","Luana","André","Fernanda","Eduardo","Bianca","Victor",
-         "Letícia","Daniel","Carolina","Felipe","Lívia","Bruno","Isabel","Caio","Marina",
-         "Alexandre","Ana Clara","Rodrigo","Raquel"
-    ]
+    faker = Faker()
+    name = faker.name()
+    return name
 
-    last_names = [ 
-           "Silva","Santos","Oliveira","Souza","Pereira","Rodrigues","Almeida","Costa","Ribeiro","Carvalho",
-           "Martins","Andrade","Cardoso","Lima","Ferreira","Gomes","Barbosa","Azevedo","Rocha","Fernandes",
-           "Melo","Castro","Teixeira","Freitas","Peixoto","Nunes","Medeiros","Batista","Menezes","Marques",
-           "Montenegro","Miranda","Sales","Cunha","Morais","Mendes","Siqueira","Fonseca","Lopes","Gonçalves",
-           "Campos","Moreira","Nascimento","Moura","Farias","Dias","Castro","Barros","Nogueira","Ramos","Cardoso"
-    ]
-    
-    name = random.choice(names)
-    last_name = random.choice(last_names)
-    full_name = f"{name} {last_name}"
-
-    return full_name
-
-
-def purchase_method():
-
-    useragentarray = [ 
-	"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36", 
-	"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36", 
-    ] 
-    
+def purchase_method():  
         
     options = Options()
     options.binary_location = "/usr/bin/google-chrome"
-    options.add_argument("--headless")
+    # options.add_argument("--headless")
     
     driver = uc.Chrome(options=options)
     # driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})") 
@@ -87,7 +62,7 @@ def purchase_method():
 
     #for i in range(len(useragentarray)): 
     # Setting user agent iteratively as Chrome 108 and 107 
-    print(cpf)
+    print(f'CPF: {cpf}, NAME: {name}')
     #driver.execute_cdp_cmd("Network.setUserAgentOverride", {"userAgent": useragentarray[i]}) 
     #print(driver.execute_script("return navigator.userAgent;")) 
 
@@ -244,4 +219,4 @@ def execute():
 
 execute()
 
-#generate_cpf()
+# generate_name()
