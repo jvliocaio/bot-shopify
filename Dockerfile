@@ -8,9 +8,12 @@ ENV TZ=America/Sao_Paulo
 RUN sudo apt-get update && sudo apt-get install -y python3 python3-pip
 #RUN pip3 install selenium
 
-COPY geckodriver /usr/bin
+#COPY geckodriver /usr/bin
 #RUN ln -s /firefox/firefox /usr/bin/firefox
 WORKDIR /app
+
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 COPY requirements.txt .
 

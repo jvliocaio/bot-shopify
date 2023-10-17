@@ -2,3 +2,4 @@ venv/
 firefox/
 geckodriver.log
 .vscode
+*.deb
